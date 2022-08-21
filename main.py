@@ -41,7 +41,9 @@ class ResultsPage(MethodView):
         flatmate1 = flat.Flatmate(billform.name1.data, int(billform.days_in_house1.data))
         flatmate2 = flat.Flatmate(billform.name2.data, int(billform.days_in_house2.data))
 
-        return f"{flatmate1.name} pays {flatmate1.pays(the_bill,flatmate2)}  {flatmate2.name} pays {flatmate2.pays(the_bill,flatmate1)}"
+        return render_template('results.html', name1=flatmate1.name, name2=flatmate2.name,
+                               amount1=flatmate1.pays(the_bill, flatmate2),
+                               amount2=flatmate2.pays(the_bill, flatmate1))
 
 
 app.add_url_rule('/', view_func=HomePage.as_view('home_page'))
